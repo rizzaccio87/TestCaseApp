@@ -1,3 +1,4 @@
+const path = require('path');
 const config = require('./config');
 const express = require('express');
 const morgan = require('morgan');
@@ -31,10 +32,11 @@ module.exports = function() {
   app.set('views', './app/views');
   app.set('view engine', 'ejs');
 
-  require('../app/routes/index.server.routes.js')(app);
-  require('../app/routes/customers.server.routes')(app);
+  app.use('/', express.static(path.resolve('./public')));
+  app.use('/lib', express.static(path.resolve('./node_modules')));
 
-  app.use(express.static('./public'));
+  require('../app/routes/customers.server.routes')(app);
+  require('../app/routes/index.server.routes.js')(app);
 
   return app;
 };
