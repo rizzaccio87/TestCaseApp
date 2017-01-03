@@ -8,7 +8,8 @@
 
   var map = {
     '@angular': 'lib/@angular',
-    'rxjs': 'lib/rxjs'
+    'rxjs': 'lib/rxjs',
+    'primeng': 'lib/primeng'
   };
 
   var ngPackageNames = [
