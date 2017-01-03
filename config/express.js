@@ -32,6 +32,7 @@ module.exports = function() {
   app.set('view engine', 'ejs');
 
   require('../app/routes/index.server.routes.js')(app);
+  require('../app/routes/customers.server.routes')(app);
 
   app.use(express.static('./public'));
 
