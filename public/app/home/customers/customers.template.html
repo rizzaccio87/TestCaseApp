@@ -1,0 +1,108 @@
+<div class="ui-grid">
+    <p-dataTable #dt [value]="customers" 
+        [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
+        expandableRows="true"
+        selectionMode="single" [(selection)]="selectedCustomer"
+        resizableColumns="true">
+        <header>Customers</header>
+        <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
+        <p-column field="typeNdg.code" header="Type" [sortable]="true" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
+            <template pTemplate="filter" let-col>
+                <p-multiSelect [options]="ndgTypeDomain" defaultLabel="All Types" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
+            </template>
+        </p-column>
+        <p-column field="ndgCode" header="Ndg" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="name" header="Name" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="surname" header="Surname" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <template let-customer pTemplate="rowexpansion">
+            <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div>Prova espansione</div>
+                <div>{{customer.fiscalCode}}</div>
+            </div>
+        </template>
+    </p-dataTable>
+    <button pButton type="button" (click)="getCustomerDetails(selectedCustomer)" label="Details"></button>
+</div>
+<div class="ui-grid">
+    <div *ngIf="!customerDetails">No Customer selected!</div>
+    <div>
+        <p-tabView *ngIf="customerDetails">
+            <p-tabPanel header="Personal Data">
+                <h3>Personal Data</h3>
+                <div class="ui-g">
+                    <div class="ui-g-2">
+                        <div style="width: 64px; height: 64px; background: url('https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_grey_64dp.png') no-repeat"></div>
+                        <div>{{customerDetails.typeNdg.code}} - {{customerDetails.ndgCode}}</div>
+                    </div>
+                    <div class="ui-g-10">
+                        <div>Name: {{customerDetails.name}}</div>
+                        <div>Surname: {{customerDetails.surname}}</div>
+                        <div>Heading: {{customerDetails.heading}}</div>
+                        <div>Birthday: {{customerDetails.birthday}}</div>
+                        <div>Fiscal Code: {{customerDetails.fiscalCode}}</div>
+                        <div>Vat Number: {{customerDetails.vatNumber}}</div>
+                        <div>Residence: {{customerDetails.residence}}</div>
+                        <div>Fiscal Address: {{customerDetails.fiscalAddress}}</div>
+                        <div>Correlated Subjects N°: {{customerDetails.correlatedSubjects}}</div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Correlated Subjects" [disabled]="customerDetails.correlatedSubjects === 0">
+                <h3>Correlated Subjects</h3>
+                <div class="ui-g">
+                    <div class="ui-g-6" *ngFor="let subject of customerDetails.listCorrelatedSubjects">
+                        <div class="ui-g-2">
+                            <div style="width: 64px; height: 64px; background: url('https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_grey_64dp.png') no-repeat"></div>
+                        </div>
+                        <div class="ui-g-10">
+                            <div>{{subject.ndgCorrelated}} - {{subject.heading}} ({{subject.typeCodeNdg}})</div>
+                            <div>{{subject.typeCodeBond.description}} ({{subject.typeCodeBond.code}})</div>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Accounts Details">
+                <h3>Accounts Details</h3>
+                <p-dropdown [options]="purchasers" [(ngModel)]="selectedAccount" (onChange)="getAccountDetails(selectedAccount)" [style]="{'width': '180px'}"></p-dropdown>
+                <div class="ui-g" *ngIf="selectedAccount">
+                    <div class="ui-g-6">
+                        <div class="ui-g-12">
+                            <div>Account List</div>
+                            <p-dataTable [value]="selectedAccount.accountsList">
+                                <p-column field="idDossier" header="Id"></p-column>
+                                <p-column field="descriptionCategory" header="Type"></p-column>
+                                <p-column field="accountType.description" header="Rapporto"></p-column>
+                                <p-column field="totalCtv.value" header="Ctv"></p-column>
+                                <p-column field="sicavEnabled" header="C.Sot."></p-column>
+                            </p-dataTable>
+                        </div>
+                        <div class="ui-g-12">
+                            <div>Ledgers List</div>
+                            <p-dataTable [value]="selectedAccount.generalLedgers">
+                                <p-column field="ledgersType.code" header="Type"></p-column>
+                                <p-column field="ledgersType.description" header="Rapporto"></p-column>
+                                <p-column field="totalCtv.value" header="Ctv"></p-column>
+                            </p-dataTable>
+                        </div>
+                    </div>
+                    <div class="ui-g-6">
+                        <div>Positions</div>
+                        <div *ngFor="let macroAsset of selectedAccount.macroAssets">
+                            <p-accordion>
+                                <p-accordionTab>
+                                    <header>{{macroAsset.macroAssetClass.id}}</header>
+                                    <p-dataTable [value]="macroAsset.positions">
+                                        <p-column field="isin" header="Isin"></p-column>
+                                        <p-column field="description" header="Desc."></p-column>
+                                        <p-column field="ctvEur" header="Ctv"></p-column>
+                                        <p-column field="quantity" header="Qty"></p-column>
+                                    </p-dataTable>
+                                </p-accordionTab>
+                            </p-accordion>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

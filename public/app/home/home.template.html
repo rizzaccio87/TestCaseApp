@@ -1,0 +1,40 @@
+<div id="layout-wrapper">
+    <!-- Topbar -->
+    <div id="topbar-wrapper">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <button pButton type="button" label="New" icon="fa-plus"></button>
+                <button pButton type="button" label="Open" icon="fa-folder-open"></button>
+                    
+                <i class="fa fa-bars"></i>
+                
+                <!-- <p-splitButton label="Save" icon="fa-check" [model]="items"></p-splitButton> -->
+            </div>
+            
+            <div class="ui-toolbar-group-right">
+                <button pButton type="button" icon="fa-search"></button>
+                <i class="fa fa-bars"></i>
+                <button pButton type="button" icon="fa-refresh"></button>
+                <button pButton type="button" icon="fa-trash"></button>
+            </div>
+        </p-toolbar>
+    </div>
+
+    <div class="ui-g">
+        <!-- Sidebar -->
+        <div id="sidebar" class="ui-g-2">
+            <div>
+                Avatar
+            </div>
+            <p-menu [model]="items"></p-menu>
+            <a [routerLink]="['dashboard']">Dashboard</a>
+            <a [routerLink]="['query']">Query</a>
+            <a [routerLink]="['customers']">Customers</a>
+        </div>
+        
+        <!-- Content -->
+        <div id="content-wrapper" class="ui-g-10">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

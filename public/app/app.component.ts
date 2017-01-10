@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mean-app',
-  template: `
-    <h1>My First PrimeNG App</h1>
-    <input type="text" pInputText/>
-  `
+  template: '<router-outlet></router-outlet>'
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private router: Router) {}
+}
