@@ -1,1 +1,8 @@
-<div>Query Content</div>
+<h2>Query Content</h2>
+
+<div>
+    <strong>Output</strong><br>
+    <span>{{output}}</span>
+</div>
+
+<query-builder [group]="filter.group" (rulesChange)="onRulesChange($event)"></query-builder>

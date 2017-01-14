@@ -20,10 +20,10 @@ export class CustomersComponent implements OnInit {
     ngOnInit() {
       this._customersService.list().subscribe(customers  => this.customers = customers);
 
-          this.ndgTypeDomain = [];
-          this.ndgTypeDomain.push({ label: 'PF', value: 'PF'});
-          this.ndgTypeDomain.push({ label: 'DIP', value: 'DIP'});
-          this.ndgTypeDomain.push({ label: 'CO', value: 'CO'});
+      this.ndgTypeDomain = [];
+      this.ndgTypeDomain.push({ label: 'PF', value: 'PF'});
+      this.ndgTypeDomain.push({ label: 'DIP', value: 'DIP'});
+      this.ndgTypeDomain.push({ label: 'CO', value: 'CO'});
     }
 
     getCustomerDetails(selectedCustomer: any) {

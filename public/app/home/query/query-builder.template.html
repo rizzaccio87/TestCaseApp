@@ -1,0 +1,25 @@
+<div class="ui-grid" style="margin: 5px; border: solid 1px black">
+    <div class="ui-grid">
+        <p-dropdown [options]="operators" [(ngModel)]="group.operator" (onChange)="onChange()" [style]="{'width': '100px'}"></p-dropdown>
+        <button pButton type="button" (click)="addCondition()" label="Add Condition" style="margin-left: 5px"></button>
+        <button pButton type="button" (click)="addGroup()" label="Add Group" style="margin-left: 5px"></button>
+        <button pButton type="button" (click)="removeGroup()" label="Remove Group" style="margin-left: 5px"></button>
+    </div>
+    <div>
+        <div *ngFor="let rule of group.rules; let i = index">
+            <div [ngSwitch]="rule.hasOwnProperty('group')">
+                <div *ngSwitchCase="true" class="ui-grid">
+                    <query-builder [group]="rule.group" [parentRules]="group.rules" [index]="i" (rulesChange)="onRulesChange($event)"></query-builder>
+                </div>
+                <div *ngSwitchDefault>
+                    <div class="ui-grid">
+                        <p-dropdown [options]="fields" [(ngModel)]="rule.field" (onChange)="onChange()" [style]="{'width': '150px'}"></p-dropdown>
+                        <p-dropdown [options]="conditions" [(ngModel)]="rule.condition" (onChange)="onChange()" [style]="{'width': '100px'}"></p-dropdown>
+                        <input style="margin-left: 5px" type="text" [(ngModel)]="rule.data" (change)="onChange()"/>
+                        <button pButton type="button" (click)="removeCondition($index)" label="Remove Condition" style="margin-left: 5px"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
