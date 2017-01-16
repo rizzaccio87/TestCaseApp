@@ -1,4 +1,5 @@
 const Customer = require('mongoose').model('Customer');
+const QueryMapper = require('../core/querymapper');
 
 exports.list = function(req, res, next) {
   Customer.find({}, (err, customers) => {
@@ -29,7 +30,7 @@ exports.getCustomerByNdg = function(req, res, next, ndg) {
 
 exports.search = function(req, res) {
   console.log(req.body);
-  let query = mapRuleForDb(req.body);
+  let query = QueryMapper.mapRuleForDb(req.body);
 
   console.log('Query created: ' + query[req.body.field]);
 
@@ -41,16 +42,3 @@ exports.search = function(req, res) {
     }
   });
 };
-
-mapRuleForDb = function(rule) {
-  let query = {};
-  if (rule.condition === '' || rule.condition === '=') {
-    query[rule.field] = rule.data;
-    console.log('Query semplice: ' + query);
-  }
-  else {
-    console.log('Query composta!');
-  }
-
-  return query;
-}

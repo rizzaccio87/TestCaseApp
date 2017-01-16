@@ -12,7 +12,8 @@ import { ButtonModule,
          TabViewModule, 
          DropdownModule, 
          AccordionModule, 
-         InputTextModule } from 'primeng/primeng';
+         InputTextModule,
+         SpinnerModule } from 'primeng/primeng';
 
 import { HomeComponent } from './home.component';
 import { HomeRoutes } from './home.routes';
@@ -40,6 +41,7 @@ import { SearchService } from './search/search.service';
         DropdownModule, 
         AccordionModule,
         InputTextModule,
+        SpinnerModule,
         RouterModule.forChild(HomeRoutes)
     ],
     declarations: [ 

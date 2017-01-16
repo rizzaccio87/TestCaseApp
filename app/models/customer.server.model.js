@@ -195,12 +195,32 @@ const positionSchema = new Schema({
 });
 
 const macroAssetsSchema = new Schema({
-    "macroAssetClass" : identitySchema, 
+    "macroAssetClassId" : Number,
+    "macroAssetClassDescription" : String,
+    "macroAssetClassColor" : String,
+    "macroAssetClassOrderId" : Number,
     "ctv" : Number,
-    "constrainedCtv" : Number,
     "risk" : Number,
     "performance" : Number,
+    "positionsSize" : Number,
     "positions" : [ positionSchema ]
+});
+
+const portfolioSummarySchema = new Schema({
+    "lastUpdateTime" : Date, //?
+    "flgAdequacy" : Boolean,
+    "risk" : Number,
+    "riskDescription" : String,
+    "trend" : Number, //?
+    "varValue": Number,
+    "ranking" : Number,
+    "misfitRisk" : Number,
+    "adequacy" : Number,
+    "concentration" : Number,
+    "globalAssetsCtvEur" : Number,
+    "checkId" : Number,
+    "severity" : Number,
+    "severityDescription" : String
 });
 
 const accountsDetailsSchema = new Schema({
@@ -209,12 +229,18 @@ const accountsDetailsSchema = new Schema({
     "accounts" : Number,
     "masterAccounts" : Number,
     "accountsList" : [ accountsListSchema ],
+    "generalLedgersSize" : Number,
     "generalLedgers" : [ generalLedgersSchema ],
-    "macroAssets" : [ macroAssetsSchema ]
+    "macroAssetsSize" : Number,
+    "macroAssetsId" : [ Number ],
+    "macroAssets" : [ macroAssetsSchema ],
+    "portfolioSummary" : [ portfolioSummarySchema ]
 });
 
 const customerSchema = new Schema({
     "ndgCode" : String,
+    "typeNdg" : codeDescriptionSchema,
+    "institute" : String,
     "name" : String,
     "surname" : String,
     "heading" : String,
@@ -224,7 +250,6 @@ const customerSchema = new Schema({
     "residence" : String,
     "fiscalAddress" : String,
     "legalLocation" : String,
-    "typeNdg" : codeDescriptionSchema,
     "correlatedSubjects" : Number,
     "listCorrelatedSubjects" : [ correlatedSubjectSchema ],
     "accountsDetails" : [ accountsDetailsSchema ]

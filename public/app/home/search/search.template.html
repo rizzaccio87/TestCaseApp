@@ -6,6 +6,7 @@
         <div [ngSwitch]="searchDataField.type">
             <p-dropdown *ngSwitchCase="'select'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-dropdown>
             <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-multiSelect>
+            <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="rule.data"></p-spinner>
             <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="rule.data" pInputText/>
         </div>
     </div>

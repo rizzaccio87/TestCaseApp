@@ -70,6 +70,11 @@
                             <div>Account List</div>
                             <p-dataTable [value]="selectedAccount.accountsList">
                                 <p-column field="idDossier" header="Id"></p-column>
+                                <p-column field="cadId" header="Cad Id">
+                                    <template let-acc="rowData" pTemplate="body">
+                                        <span>{{acc.cadId.branchCode}}/{{acc.cadId.deposit}}/{{acc.cadId.subDeposit}}</span>
+                                    </template>
+                                </p-column>
                                 <p-column field="descriptionCategory" header="Type"></p-column>
                                 <p-column field="accountType.description" header="Rapporto"></p-column>
                                 <p-column field="totalCtv.value" header="Ctv"></p-column>
@@ -90,7 +95,7 @@
                         <div *ngFor="let macroAsset of selectedAccount.macroAssets">
                             <p-accordion>
                                 <p-accordionTab>
-                                    <header>{{macroAsset.macroAssetClass.id}}</header>
+                                    <header>{{macroAsset.macroAssetClassId}}</header>
                                     <p-dataTable [value]="macroAsset.positions">
                                         <p-column field="isin" header="Isin"></p-column>
                                         <p-column field="description" header="Desc."></p-column>
