@@ -16,6 +16,10 @@ import { ButtonModule,
          SpinnerModule } from 'primeng/primeng';
 
 import { HomeComponent } from './home.component';
+import { HeaderComponent } from './shell/header.component';
+import { MenuComponent } from './shell/menu.component';
+import { SidebarComponent } from './shell/sidebar.component';
+import { UserProfileComponent } from './shell/profile.component';
 import { HomeRoutes } from './home.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QueryComponent } from './query/query.component';
@@ -46,6 +50,10 @@ import { SearchService } from './search/search.service';
     ],
     declarations: [ 
         HomeComponent,
+        HeaderComponent,
+        MenuComponent,
+        SidebarComponent,
+        UserProfileComponent,
         DashboardComponent,
         QueryComponent,
         QueryBuilderComponent,

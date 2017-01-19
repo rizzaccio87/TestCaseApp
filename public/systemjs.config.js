@@ -9,6 +9,7 @@
   var map = {
     '@angular': 'lib/@angular',
     'rxjs': 'lib/rxjs',
+    '@mdl': "lib/material-design-lite",///material.min.js",
     'primeng': 'lib/primeng'
   };
 
@@ -26,6 +27,8 @@
   ngPackageNames.forEach(function(pkgName) {	
     packages['@angular/' + pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
   });
+
+  packages['@mdl'] = { main: '/material.js', defaultExtension: 'js'};
 
   System.config({
     defaultJSExtensions: true,

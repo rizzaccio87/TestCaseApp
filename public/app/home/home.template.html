@@ -1,41 +1,13 @@
-<div id="layout-wrapper">
-    <!-- Topbar -->
-    <div id="topbar-wrapper">
-        <p-toolbar>
-            <div class="ui-toolbar-group-left">
-                <button pButton type="button" label="New" icon="fa-plus"></button>
-                <button pButton type="button" label="Open" icon="fa-folder-open"></button>
-                    
-                <i class="fa fa-bars"></i>
-                
-                <!-- <p-splitButton label="Save" icon="fa-check" [model]="items"></p-splitButton> -->
+<div class="mdl-layout__container">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+        <app-header class="app-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        </app-header>
+        <app-sidebar class="app-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        </app-sidebar>
+        <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="mdl-grid">
+                <router-outlet></router-outlet>
             </div>
-            
-            <div class="ui-toolbar-group-right">
-                <button pButton type="button" icon="fa-search"></button>
-                <i class="fa fa-bars"></i>
-                <button pButton type="button" icon="fa-refresh"></button>
-                <button pButton type="button" icon="fa-trash"></button>
-            </div>
-        </p-toolbar>
-    </div>
-
-    <div class="ui-g">
-        <!-- Sidebar -->
-        <div id="sidebar" class="ui-g-2">
-            <div>
-                Avatar
-            </div>
-            <p-menu [model]="items"></p-menu>
-            <a [routerLink]="['dashboard']">Dashboard</a>
-            <a [routerLink]="['customers']">Customers</a>
-            <a [routerLink]="['search']">Search</a>
-            <a [routerLink]="['query']">Query</a>
-        </div>
-        
-        <!-- Content -->
-        <div id="content-wrapper" class="ui-g-10">
-            <router-outlet></router-outlet>
-        </div>
+        </main>
     </div>
 </div>

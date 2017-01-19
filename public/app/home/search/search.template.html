@@ -1,18 +1,27 @@
 <h2>Search</h2>
-<div class="ui-grid">
-    <p-dropdown [options]="searchFields" [(ngModel)]="rule.field" (onChange)="onFieldChange($event)" [style]="{'width': '250px'}"></p-dropdown>
-    <p-dropdown *ngIf="searchConditions && searchConditions.length > 0" [options]="searchConditions" [(ngModel)]="rule.condition" (onChange)="onConditionChange($event)" [style]="{'width': '100px'}"></p-dropdown>
-    <div *ngIf="searchDataField" style="display: inline-block;">
-        <div [ngSwitch]="searchDataField.type">
-            <p-dropdown *ngSwitchCase="'select'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-dropdown>
-            <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-multiSelect>
-            <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="rule.data"></p-spinner>
-            <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="rule.data" pInputText/>
+<p-tabView>
+    <p-tabPanel header="Position">
+        <h3>Position Search</h3>
+        <div class="ui-grid">
+            <p-dropdown [options]="searchFields" [(ngModel)]="rule.field" (onChange)="onFieldChange($event)" [style]="{'width': '250px'}"></p-dropdown>
+            <p-dropdown *ngIf="searchConditions && searchConditions.length > 0" [options]="searchConditions" [(ngModel)]="rule.condition" (onChange)="onConditionChange($event)" [style]="{'width': '100px'}"></p-dropdown>
+            <div *ngIf="searchDataField" style="display: inline-block;">
+                <div [ngSwitch]="searchDataField.type">
+                    <p-dropdown *ngSwitchCase="'select'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-dropdown>
+                    <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-multiSelect>
+                    <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="rule.data"></p-spinner>
+                    <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="rule.data" pInputText/>
+                </div>
+            </div>
+            <button pButton type="button" (click)="search()" label="Search" style="margin-left: 5px"></button>
         </div>
-    </div>
-    <button pButton type="button" (click)="search()" label="Search" style="margin-left: 5px"></button>
-</div>
+    </p-tabPanel>
+    <p-tabPanel header="Dossier">
+        <h3>Dossier Search</h3>
+    </p-tabPanel>
+</p-tabView>
 
+<div *ngIf="!customer || customer.length === 0">No results</div>
 <div class="ui-grid" *ngIf="customers && customers.length > 0">
     <p-dataTable #dt [value]="customers" 
         [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
