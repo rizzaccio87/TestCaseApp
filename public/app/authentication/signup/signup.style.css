@@ -1,0 +1,13 @@
+.signup-card {
+    border-radius: 10px;
+}
+
+.signup-card-title {
+    justify-content: center;
+}
+
+.signup-card-body {
+    line-height: 35px;
+    text-align: center;
+    font-size: 13px;
+}

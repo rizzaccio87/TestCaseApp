@@ -6,7 +6,10 @@ import { HttpModule, RequestOptions } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
-import { HomeModule } from './home/home.module'
+import { HomeModule } from './home/home.module';
+import { AuthenticationModule  } from './authentication/authentication.module';
+import { AuthenticationService } from './authentication/authentication.service';
+import { AuthGuard } from './authentication/authentication.guard';
 
 @NgModule({
   imports: [ 
@@ -14,9 +17,11 @@ import { HomeModule } from './home/home.module'
     FormsModule,
     HttpModule,
     HomeModule,
+    AuthenticationModule,
     RouterModule.forRoot(AppRoutes)
   ],
   declarations: [ AppComponent ],
-  bootstrap: [AppComponent]
+  providers: [ AuthenticationService, AuthGuard ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

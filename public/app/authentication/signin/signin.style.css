@@ -1,0 +1,13 @@
+.signin-card {
+    border-radius: 10px;
+}
+
+.signin-card-title {
+    justify-content: center;
+}
+
+.signin-card-body {
+    line-height: 35px;
+    text-align: center;
+    font-size: 13px;
+}

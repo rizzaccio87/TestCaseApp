@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app',
-  template: '<router-outlet></router-outlet>'
+  template: `
+    <router-outlet></router-outlet>
+  `
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 }
