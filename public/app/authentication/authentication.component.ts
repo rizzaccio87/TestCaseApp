@@ -5,5 +5,6 @@ import { SignupComponent } from './signup/signup.component';
 @Component({
   selector: 'authentication',
   templateUrl: 'app/authentication/authentication.template.html',
+  styleUrls: ['app/authentication/authentication.style.css']
 })
 export class AuthenticationComponent { }
