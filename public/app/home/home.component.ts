@@ -11,7 +11,6 @@ import { AuthenticationService } from '../authentication/authentication.service'
   styleUrls: ['./app/home/home.style.css']
 })
 export class HomeComponent implements OnInit {
-  private items: MenuItem[];
   private user: any;
 
   constructor (private _authenticationService: AuthenticationService, private router: Router) {
@@ -19,30 +18,10 @@ export class HomeComponent implements OnInit {
 
     // register to route changes
     router.events.subscribe(() => {
-        // ..and run the MDL script to augment all new controls Angular has
-        // rendered
-        //if(event instanceof NavigationStart) {
-          materialLite.componentHandler.upgradeAllRegistered();
-        //}
+        // ..and run the MDL script to augment all new controls Angular has rendered
+        materialLite.componentHandler.upgradeAllRegistered();
     });
   }
 
-  ngOnInit() {
-      this.items = [{
-        label: 'Dashboard',
-        icon: 'fa-dashboard',
-        routerLink: ['/home/dashboard']
-      },
-      {
-        label: 'Customers',
-        icon: 'fa-users',
-        routerLink: ['/home/customers']
-      },
-      {
-          label: 'Query',
-          items: [
-              {label: 'New', icon: 'fa-plus', routerLink: ['/home/query']}
-          ]
-      }];
-  }
+  ngOnInit() { }
 }

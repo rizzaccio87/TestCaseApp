@@ -1,1 +1,97 @@
-<div>Dashboard Content</div>
+<div class="dashboard-container">
+    <div class="dashboard-row">
+        <div class="dashboard-card mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title">Last Queries</div>
+            <div class="mdl-card__supporting-text">
+                <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+                    <thead>
+                        <tr>
+                            <th>Query</th>
+                            <th>Type</th>
+                            <th>Cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Query 1</td>
+                            <td>Simple</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>Query 2</td>
+                            <td>Composite</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Query 3</td>
+                            <td>Simple</td>
+                            <td>100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mdl-card__actions">
+                
+            </div>
+        </div>
+        <div class="dashboard-card mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title">Queries Stats</div>
+            <div class="mdl-card__supporting-text">
+                <div class="card-body">
+                    <donut-chart></donut-chart>
+                    <div class="query-details">
+                        <table class="mdl-data-table mdl-js-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Area</th>
+                                    <th>Condition</th>
+                                    <th>Queries</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Position</td>
+                                    <td>Instrument</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Dossier</td>
+                                    <td>Sicav</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Other</td>
+                                    <td>Liquidity</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-card__actions">
+                
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-row">
+        <div class="dashboard-card mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title">Tasks/Defects</div>
+            <div class="mdl-card__supporting-text">
+                Show tasks and defects with related queries
+            </div>
+            <div class="mdl-card__actions">
+                
+            </div>
+        </div>
+        <div class="dashboard-card mdl-card mdl-shadow--4dp">
+            <div class="mdl-card__title">Favorites</div>
+            <div class="mdl-card__supporting-text">
+                Show favorite queries
+            </div>
+            <div class="mdl-card__actions">
+                
+            </div>
+        </div>
+    </div>
+</div>

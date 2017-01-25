@@ -19,6 +19,7 @@ import { HomeComponent } from './home.component';
 import { HeaderComponent } from './shell/header.component';
 import { MenuComponent } from './shell/menu.component';
 import { SidebarComponent } from './shell/sidebar.component';
+import { DonutChartComponent } from './charts/donut-chart.component';
 import { UserProfileComponent } from './shell/profile.component';
 import { HomeRoutes } from './home.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -53,6 +54,7 @@ import { SearchService } from './search/search.service';
         HeaderComponent,
         MenuComponent,
         SidebarComponent,
+        DonutChartComponent,
         UserProfileComponent,
         DashboardComponent,
         QueryComponent,
