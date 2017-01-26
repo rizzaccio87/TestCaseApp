@@ -1,0 +1,16 @@
+<div #dialog class="md-dialog mdl-color--white mdl-shadow--2dp" [hidden]="!isOpen" (keydown.esc)="cancel()" (keydown.enter)="ok()">
+    <div class="md-dialog-content">
+        <div class="typo-styles__demo mdl-typography--headline">
+            <ng-content select="[title]"></ng-content>
+        </div>
+        <div class="md-dialog-content-body">
+            <ng-content select="[content]"></ng-content>
+        </div>
+    </div>
+    <div class="md-dialog-actions">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect" (click)="ok()">Ok</button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect" (click)="cancel()">Cancel</button>
+    </div>
+    <div tabindex="0" (focus)="dialog.focus()"></div>
+</div>
+<div class="md-backdrop" [hidden]="!isOpen"></div>

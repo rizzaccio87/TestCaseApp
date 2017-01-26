@@ -1,0 +1,9 @@
+.avatar-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.avatar-card.is-active {
+    border: 5px solid blue;
+}

@@ -3,6 +3,10 @@ const crypto = require('crypto');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    avatar: {
+      type: Number,
+      default: 0
+    },
     firstName: String,
     lastName: String,
     email: {

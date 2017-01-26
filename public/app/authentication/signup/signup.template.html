@@ -1,34 +1,47 @@
 <div class="signup-card mdl-card mdl-shadow--2dp">
     <div class="signup-card-title mdl-card__title">Welcome To TestCase App</div>
     <div class="signup-card-body mdl-card__supporting-text">
-        <form (ngSubmit)="signup()">
-        <div>
-        <label>First Name:</label>
-            <input type="text" [(ngModel)]="user.firstName" name="firstName">
-        </div>
-        <div>
-            <label>Last Name:</label>
-            <input type="text" [(ngModel)]="user.lastName" name="lastName">
-        </div>
-        <div>
-            <label>Email:</label>
-            <input type="text" [(ngModel)]="user.email" name="email">
-        </div>
-        <div>
-            <label>Username:</label>
-            <input type="text" [(ngModel)]="user.username" name="username">
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" [(ngModel)]="user.password" name="password">
-        </div>
-        <div>
-            <input type="submit" value="Sign up" />
-        </div>
-        <span>{{errorMessage}}</span>
+        <form (ngSubmit)="signup()" class="signup-form">
+            <div class="avatar-container">
+                <img width="100px" [attr.src]="avatar.src"/>
+                <button type="button" [open-with]="avatarModal" (confirm)="changeAvatar(avatarscontainer.selectedAvatar)">Avatar choice</button>
+            </div>
+            <div>
+                <label>First Name:</label>
+                <input type="text" [(ngModel)]="user.firstName" name="firstName">
+            </div>
+            <div>
+                <label>Last Name:</label>
+                <input type="text" [(ngModel)]="user.lastName" name="lastName">
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="text" [(ngModel)]="user.email" name="email">
+            </div>
+            <div>
+                <label>Username:</label>
+                <input type="text" [(ngModel)]="user.username" name="username">
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" [(ngModel)]="user.password" name="password">
+            </div>
+            <div>
+                <input type="submit" value="Sign up" />
+            </div>
+            <span>{{errorMessage}}</span>
         </form>
     </div>
     <div class="mdl-card__actions">
-        <a href="" [routerLink]="['/authentication/signin']">Sign In</a>
+        <a href="" [routerLink]="['/authentication/signin']">Sign Up</a>
     </div>
 </div>
+
+<modal #avatarModal>
+    <span title>Avatar Choice</span>
+    <div content class="mdl-card__supporting-text">
+        <avatars-container #avatarscontainer>
+            <avatar-card *ngFor="let item of avatars" [id]="item.id" [imgSrc]="item.src" (click)="avatarscontainer.selectAvatar(item.id)"></avatar-card>
+        </avatars-container>
+    </div>
+</modal>

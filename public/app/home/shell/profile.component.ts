@@ -8,8 +8,10 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 })
 export class UserProfileComponent {
     user: any;
+    avatarSrc: string;
 
     constructor(private _authenticationService: AuthenticationService) {
         this.user = _authenticationService.user;
+        this.avatarSrc = "/resources/imgs/avatar-" + this.user.avatar + ".png";
     }
 }
