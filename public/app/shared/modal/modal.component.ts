@@ -2,8 +2,8 @@ import {Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'modal',
-    templateUrl: 'app/authentication/modal/modal.template.html',
-    styleUrls: ['app/authentication/modal/modal.style.css']
+    templateUrl: 'app/shared/modal/modal.template.html',
+    styleUrls: ['app/shared/modal/modal.style.css']
 })
 export class ModalComponent {
     private isOpen: boolean = false;
