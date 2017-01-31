@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule }   from '@angular/router';
+import { SharedModule as AppSharedModule } from '../shared/shared.module';
 import { ButtonModule, 
          SplitButtonModule,
          MenuModule, 
@@ -35,6 +36,7 @@ import { SearchService } from './search/search.service';
     imports: [
         CommonModule,
         FormsModule,
+        AppSharedModule,
         ButtonModule, 
         SplitButtonModule, 
         MenuModule, 
