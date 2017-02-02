@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
-import { SearchRules } from './searchRules';
-import { SearchService } from './search.service';
+import { PositionSearchRules } from '../rules/positionSearchRules';
+import { SearchService } from '../search.service';
 
 @Component({
     selector: 'search',
-    templateUrl: './app/home/search/search.template.html'
+    templateUrl: './app/home/search/simple/search.template.html'
 })
 export class SearchComponent implements OnInit {
     rule : any;
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
         this.searchDataOptions = [];
         
         this.searchFields.push({ label:'Field', value: ''});
-        for (let rule of SearchRules.RULES) {
+        for (let rule of PositionSearchRules.RULES) {
             this.searchFields.push({ label: rule.field.label, value: rule.field.value });
         }
 
@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
             this.searchDataOptions = [];
         }
 
-        for (let rule of SearchRules.RULES) {
+        for (let rule of PositionSearchRules.RULES) {
             if (rule.field.value === fieldValue) {
                 this.searchConditions.push({ label: 'Condition', value: '' });
                 for (let condition of rule.conditions) {
@@ -82,7 +82,7 @@ export class SearchComponent implements OnInit {
         console.log("onConditionChange " + conditionValue);
 
         let fieldValue = this.rule.field;
-        for (let rule of SearchRules.RULES) {
+        for (let rule of PositionSearchRules.RULES) {
             if (rule.field.value === fieldValue) {
                 for (let condition of rule.conditions) {
                     if (condition.value === conditionValue) {

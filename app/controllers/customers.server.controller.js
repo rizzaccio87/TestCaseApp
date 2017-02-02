@@ -42,3 +42,18 @@ exports.search = function(req, res) {
     }
   });
 };
+
+exports.query = function(req, res) {
+    //TODO: ricreare la query composta per mongodb
+    console.log(req.body);
+
+    let query = QueryMapper.mapQueryForDb(req.body);
+
+    Customer.find(query, 'ndgCode typeNdg heading').exec((err, customers) => {
+      if (err) {
+        return next(err);
+      } else {
+        res.status(200).json(customers);
+      }
+    });
+}

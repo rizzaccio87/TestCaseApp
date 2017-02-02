@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
 
 import { QueryBuilderComponent } from './query-builder.component';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'query',
-  templateUrl: './app/home/query/query.template.html'
+  templateUrl: './app/home/search/query/query.template.html'
 })
 export class QueryComponent { 
   differ: any;
   filter : any;
   output : string;
+  customers: any;
 
-  constructor() {
+  constructor(private _searchService: SearchService) {
     this.filter = {
       group: { 
-        "operator": "AND",
+        "operator": '',
         "rules": []
       }
-    }
+    };
   }
 
   htmlEntities(str) {
@@ -27,6 +29,7 @@ export class QueryComponent {
   computed(group) {
       if (!group) return "";
       let str = "(";
+      
       for (let i = 0; i < group.rules.length; i++) {
           i > 0 && (str += " " + group.operator + " ");
           str += group.rules[i].group ?
@@ -40,5 +43,15 @@ export class QueryComponent {
   onRulesChange(s: string) {
     console.log(s);
     this.output = this.computed(this.filter.group);
+  }
+
+  search() {
+    console.log("Composite Search service: " + this.filter.group);
+
+    this._searchService.composedSearch(this.filter.group)
+        .subscribe(customers  => {
+            this.customers = customers;
+            console.log("Composite Search Service output: " + customers);
+        });
   }
 }

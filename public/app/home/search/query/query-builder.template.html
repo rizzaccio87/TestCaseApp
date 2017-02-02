@@ -1,0 +1,36 @@
+<div class="ui-grid" style="margin: 5px; border: solid 1px black">
+    <div class="ui-grid">
+        <p-dropdown [options]="operators" [(ngModel)]="group.operator" (onChange)="onChange()" [style]="{'width': '100px'}"></p-dropdown>
+        <button pButton type="button" (click)="addCondition()" label="Add Condition" style="margin-left: 5px"></button>
+        <button pButton type="button" (click)="addGroup()" label="Add Group" style="margin-left: 5px"></button>
+        <button pButton type="button" (click)="removeGroup()" label="Remove Group" style="margin-left: 5px"></button>
+    </div>
+    <div>
+        <div *ngFor="let rule of group.rules; let i = index">
+            <div [ngSwitch]="rule.hasOwnProperty('group')">
+                <div *ngSwitchCase="true" class="ui-grid">
+                    <query-builder [group]="rule.group" [parentRules]="group.rules" [index]="i" (rulesChange)="onRulesChange($event)"></query-builder>
+                </div>
+                <div *ngSwitchDefault>
+                    <div class="ui-grid">
+                        <p-dropdown [options]="areas" [(ngModel)]="rule.area" (onChange)="onAreaChange($event, rule)" [style]="{'width': '150px'}"></p-dropdown>
+                        <p-dropdown [options]="rule.domains.fieldOptions" [(ngModel)]="rule.field" (onChange)="onFieldChange($event, rule)" [style]="{'width': '150px'}"></p-dropdown>
+                        <p-dropdown [options]="rule.domains.conditionOptions" [(ngModel)]="rule.condition" (onChange)="onConditionChange($event, rule)" [style]="{'width': '100px'}"></p-dropdown>
+                        
+                        <div *ngIf="rule.dataField" style="display: inline-block;">
+                            <div [ngSwitch]="rule.dataField.type">
+                                <p-dropdown *ngSwitchCase="'select'" [options]="rule.domains.dataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}" (onChange)="onChange()"></p-dropdown>
+                                <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="rule.domains.dataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}" (onChange)="onChange()"></p-multiSelect>
+                                <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="rule.data" (onChange)="onChange()"></p-spinner>
+                                <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="rule.data" pInputText (change)="onChange()"/>
+                            </div>
+                        </div>
+                        
+                        <!-- <input style="margin-left: 5px" type="text" [(ngModel)]="rule.data" (change)="onChange()"/> -->
+                        <button pButton type="button" (click)="removeCondition(i)" label="Remove Condition" style="margin-left: 5px"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

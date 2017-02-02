@@ -4,6 +4,7 @@ module.exports = function(app) {
   app.route('/api/customers').get(customers.list);
   app.route('/api/customers/:ndg').get(customers.read);
   app.route('/api/search').post(customers.search);
+  app.route('/api/query').post(customers.query);
 
   app.param('ndg', customers.getCustomerByNdg);
 };

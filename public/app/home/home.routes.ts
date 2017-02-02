@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { QueryComponent } from './query/query.component';
 import { CustomersComponent } from './customers/customers.component';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './search/simple/search.component';
+import { QueryComponent } from './search/query/query.component';
 import { AuthGuard } from '../authentication/authentication.guard';
 
 export const HomeRoutes: Routes = [

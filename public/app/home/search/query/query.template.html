@@ -1,0 +1,9 @@
+<h2>Query Content</h2>
+
+<div>
+    <strong>Mongo DB Query</strong><br>
+    <span>{{output}}</span>
+</div>
+
+<query-builder [group]="filter.group" (rulesChange)="onRulesChange($event)"></query-builder>
+<button type="button" (click)="search()" label="Search" style="margin-left: 5px">Search</button>

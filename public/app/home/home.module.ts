@@ -24,10 +24,10 @@ import { DonutChartComponent } from './charts/donut-chart.component';
 import { UserProfileComponent } from './shell/profile.component';
 import { HomeRoutes } from './home.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { QueryComponent } from './query/query.component';
-import { QueryBuilderComponent } from './query/query-builder.component';
+import { QueryComponent } from './search/query/query.component';
+import { QueryBuilderComponent } from './search/query/query-builder.component';
 import { CustomersComponent } from './customers/customers.component';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './search/simple/search.component';
 
 import { CustomersService } from './customers/customers.service';
 import { SearchService } from './search/search.service';

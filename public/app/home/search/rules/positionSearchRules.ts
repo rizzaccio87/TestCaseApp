@@ -1,6 +1,6 @@
 import { SelectItem } from 'primeng/primeng';
 
-export class SearchRules {
+export class PositionSearchRules {
     public static INSTRUMENTTYPE_DOMAIN : SelectItem[] = [
          { value: '1', label: 'OBBLIGAZIONI' },
          { value: '2', label: 'AZIONI E DIRITTI' },
@@ -14,7 +14,7 @@ export class SearchRules {
          { value: '1040', label: 'GPM' },
          { value: '1050', label: 'POLIZZE' },
          { value: '1060', label: 'Prestito titoli' },
-         { value: '1000', label: 'Liquidità' },
+         { value: '1000', label: 'Liquidità' }
     ];
 
     public static PRODUCTCODE_DOMAIN: SelectItem[] = [
@@ -31,7 +31,7 @@ export class SearchRules {
             value: '$eq',
             dataField: {
                 type: 'select',
-                domain: SearchRules.INSTRUMENTTYPE_DOMAIN
+                domain: PositionSearchRules.INSTRUMENTTYPE_DOMAIN
             }
         },
         {
@@ -39,7 +39,7 @@ export class SearchRules {
             value: '$in',
             dataField: {
                 type: 'multiSelect',
-                domain: SearchRules.INSTRUMENTTYPE_DOMAIN
+                domain: PositionSearchRules.INSTRUMENTTYPE_DOMAIN
             }
         },
         {
@@ -47,7 +47,7 @@ export class SearchRules {
             value: '$all',
             dataField: {
                 type: 'multiSelect',
-                domain: SearchRules.INSTRUMENTTYPE_DOMAIN
+                domain: PositionSearchRules.INSTRUMENTTYPE_DOMAIN
             }
         }]
     },
@@ -91,7 +91,7 @@ export class SearchRules {
             value: '$eq',
             dataField: {
                 type: 'select',
-                domain: SearchRules.PRODUCTCODE_DOMAIN
+                domain: PositionSearchRules.PRODUCTCODE_DOMAIN
             }
         },
         {
@@ -99,7 +99,7 @@ export class SearchRules {
             value: '$in',
             dataField: {
                 type: 'multiSelect',
-                domain: SearchRules.PRODUCTCODE_DOMAIN
+                domain: PositionSearchRules.PRODUCTCODE_DOMAIN
             }
         },
         {
@@ -107,7 +107,7 @@ export class SearchRules {
             value: '$all',
             dataField: {
                 type: 'multiSelect',
-                domain: SearchRules.PRODUCTCODE_DOMAIN
+                domain: PositionSearchRules.PRODUCTCODE_DOMAIN
             }
         }]
     },
