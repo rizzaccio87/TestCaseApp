@@ -15,7 +15,7 @@
                     <div class="ui-grid">
                         <p-dropdown [options]="areas" [(ngModel)]="rule.area" (onChange)="onAreaChange($event, rule)" [style]="{'width': '150px'}"></p-dropdown>
                         <p-dropdown [options]="rule.domains.fieldOptions" [(ngModel)]="rule.field" (onChange)="onFieldChange($event, rule)" [style]="{'width': '150px'}"></p-dropdown>
-                        <p-dropdown [options]="rule.domains.conditionOptions" [(ngModel)]="rule.condition" (onChange)="onConditionChange($event, rule)" [style]="{'width': '100px'}"></p-dropdown>
+                        <p-dropdown [options]="rule.domains.conditionOptions" [(ngModel)]="rule.condition.operator" (onChange)="onConditionChange($event, rule)" [style]="{'width': '100px'}"></p-dropdown>
                         
                         <div *ngIf="rule.dataField" style="display: inline-block;">
                             <div [ngSwitch]="rule.dataField.type">
@@ -26,7 +26,6 @@
                             </div>
                         </div>
                         
-                        <!-- <input style="margin-left: 5px" type="text" [(ngModel)]="rule.data" (change)="onChange()"/> -->
                         <button pButton type="button" (click)="removeCondition(i)" label="Remove Condition" style="margin-left: 5px"></button>
                     </div>
                 </div>

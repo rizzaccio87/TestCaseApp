@@ -7,3 +7,19 @@
 
 <query-builder [group]="filter.group" (rulesChange)="onRulesChange($event)"></query-builder>
 <button type="button" (click)="search()" label="Search" style="margin-left: 5px">Search</button>
+
+<div *ngIf="!customers || customers.length === 0">No results</div>
+<div class="ui-grid" *ngIf="customers && customers.length > 0">
+    <p-dataTable #dt [value]="customers" 
+        [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
+        resizableColumns="true">
+        <header>Customers</header>
+        <p-column field="typeNdg.code" header="Type" [sortable]="true" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
+            <template pTemplate="filter" let-col>
+                <p-multiSelect [options]="ndgTypeDomain" defaultLabel="All Types" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
+            </template>
+        </p-column>
+        <p-column field="ndgCode" header="Ndg" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="heading" header="Heading" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+    </p-dataTable>
+</div>

@@ -1,5 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { PositionSearchRules } from '../rules/positionSearchRules';
+import { DossierSearchRules } from '../rules/dossierSearchRules';
+import { OthersSearchRules } from '../rules/othersSearchRules';
 
 import { SelectItem } from 'primeng/primeng';
 
@@ -51,7 +53,11 @@ export class QueryBuilderComponent implements OnInit {
                 dataOptions: dataOptions
             },
             field: '',
-            condition: '',
+            condition: {
+                operator: '',
+                operatorType: '',
+                subConditions: []
+            },
             data: ''
         };
 
@@ -97,12 +103,14 @@ export class QueryBuilderComponent implements OnInit {
         console.log("onAreaChange " + areaValue);
 
         switch (areaValue) {
-            // TODO: aggiungere le altre regole
             case 'Position':
                 areaRules = PositionSearchRules.RULES;
-                break;        
+                break;
+            case 'Dossier':
+                areaRules = DossierSearchRules.RULES;
+                break;   
             default:
-                areaRules = PositionSearchRules.RULES;
+                areaRules = OthersSearchRules.RULES;
                 break;
         }
 
@@ -118,8 +126,16 @@ export class QueryBuilderComponent implements OnInit {
 
         // empty data
         rule.field = '';
-        rule.condition = '';
-        //rule.data = '';
+        rule.condition = {
+            operator: '',
+            operatorType: '',
+            subConditions: []
+        };
+        
+        if (rule.dataField) {
+            rule.dataField = null;
+            rule.data = null;
+        }
     }
 
     onFieldChange(event: any, rule: any) {
@@ -129,12 +145,14 @@ export class QueryBuilderComponent implements OnInit {
         console.log("onFieldChange " + fieldValue);
 
         switch (areaValue) {
-            // TODO: aggiungere le altre regole
             case 'Position':
                 areaRules = PositionSearchRules.RULES;
-                break;        
+                break;
+            case 'Dossier':
+                areaRules = DossierSearchRules.RULES;
+                break;         
             default:
-                areaRules = PositionSearchRules.RULES;
+                areaRules = OthersSearchRules.RULES;
                 break;
         }
 
@@ -153,9 +171,15 @@ export class QueryBuilderComponent implements OnInit {
         }
 
         // empty data
-        rule.condition = '';
-        rule.data = '';
-        rule.dataField = null;
+        rule.condition = {
+            operator: '',
+            operatorType: '',
+            subConditions: []
+        };
+        if (rule.dataField) {
+            rule.dataField = null;
+            rule.data = null;
+        }
 
         // emit rulesChange event
         this.rulesChange.emit("Propagation: " + this.index);
@@ -174,12 +198,14 @@ export class QueryBuilderComponent implements OnInit {
         }
 
         switch (areaValue) {
-            // TODO: aggiungere le altre regole
             case 'Position':
                 areaRules = PositionSearchRules.RULES;
-                break;        
+                break;
+            case 'Dossier':
+                areaRules = DossierSearchRules.RULES;
+                break;      
             default:
-                areaRules = PositionSearchRules.RULES;
+                areaRules = OthersSearchRules.RULES;
                 break;
         }
 
@@ -193,9 +219,11 @@ export class QueryBuilderComponent implements OnInit {
                 for (let condition of areaRule.conditions) {
                     if (condition.value === conditionValue) {
                         rule.dataField = condition.dataField;
+                        rule.condition.operatorType = (condition.operatorType) ? condition.operatorType : '';
+                        rule.condition.subConditions = (condition.subConditions) ? condition.subConditions : [];
 
                         if (condition.dataField.domain && condition.dataField.domain.length > 0) {
-                            //rule.domains.dataOptions.push({ label: 'Data', value: ''});
+                            rule.domains.dataOptions.push({ label: 'Data', value: ''});
                             for (let option of condition.dataField.domain) {
                                 rule.domains.dataOptions.push(option);
                             }

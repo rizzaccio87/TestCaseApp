@@ -10,9 +10,20 @@ exports.mapQueryForDb = function(query) {
 const computeRule = function(rule) {
   let query = {};
   query[rule.field] = {};
-  query[rule.field][rule.condition] = rule.data;
-  console.log('Query: ' + query);
 
+  if (rule.condition.operatorType && rule.condition.operatorType === 'array') {
+    // query operator array
+    query[rule.field][rule.condition.operator] = {};
+    for (let subCondition of rule.condition.subConditions) {
+      query[rule.field][rule.condition.operator][subCondition.field] = {};
+      query[rule.field][rule.condition.operator][subCondition.field][subCondition.operator] = rule.data;
+    }
+  }
+  else {
+    query[rule.field][rule.condition.operator] = rule.data;
+  }
+
+  console.log('Query: ' + query);
   return query;
 }
 

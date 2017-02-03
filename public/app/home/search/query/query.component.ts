@@ -12,6 +12,7 @@ export class QueryComponent {
   filter : any;
   output : string;
   customers: any;
+  ndgTypeDomain: any;
 
   constructor(private _searchService: SearchService) {
     this.filter = {
@@ -20,6 +21,11 @@ export class QueryComponent {
         "rules": []
       }
     };
+
+    this.ndgTypeDomain = [];
+    this.ndgTypeDomain.push({ label: 'PF', value: 'PF'});
+    this.ndgTypeDomain.push({ label: 'DIP', value: 'DIP'});
+    this.ndgTypeDomain.push({ label: 'CO', value: 'CO'});
   }
 
   htmlEntities(str) {
@@ -34,7 +40,7 @@ export class QueryComponent {
           i > 0 && (str += " " + group.operator + " ");
           str += group.rules[i].group ?
               this.computed(group.rules[i].group) :
-              group.rules[i].field + " " + group.rules[i].condition + " " + group.rules[i].data;
+              group.rules[i].field + " " + group.rules[i].condition.operator + " " + group.rules[i].data;
       }
 
       return str + ")";

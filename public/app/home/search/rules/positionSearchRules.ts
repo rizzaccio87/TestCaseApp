@@ -1,6 +1,8 @@
+import { Conditions } from './conditions';
 import { SelectItem } from 'primeng/primeng';
 
 export class PositionSearchRules {
+    
     public static INSTRUMENTTYPE_DOMAIN : SelectItem[] = [
          { value: '1', label: 'OBBLIGAZIONI' },
          { value: '2', label: 'AZIONI E DIRITTI' },
@@ -26,30 +28,7 @@ export class PositionSearchRules {
 
     public static RULES = [{
         field: { label: 'Instrument Type', value: 'accountsDetails.macroAssetsId' },
-        conditions: [{
-            label: 'is',
-            value: '$eq',
-            dataField: {
-                type: 'select',
-                domain: PositionSearchRules.INSTRUMENTTYPE_DOMAIN
-            }
-        },
-        {
-            label: 'in',
-            value: '$in',
-            dataField: {
-                type: 'multiSelect',
-                domain: PositionSearchRules.INSTRUMENTTYPE_DOMAIN
-            }
-        },
-        {
-            label: 'all',
-            value: '$all',
-            dataField: {
-                type: 'multiSelect',
-                domain: PositionSearchRules.INSTRUMENTTYPE_DOMAIN
-            }
-        }]
+        conditions: Conditions.getComparisonConditions(PositionSearchRules.INSTRUMENTTYPE_DOMAIN)
     },
     {
         field: { label: 'Isin', value: 'accountsDetails.macroAssets.positions.isin' },
@@ -86,30 +65,7 @@ export class PositionSearchRules {
     },
     {
         field: { label: 'Product Code', value: 'accountsDetails.macroAssets.positions.productCode' },
-        conditions: [{
-            label: 'is',
-            value: '$eq',
-            dataField: {
-                type: 'select',
-                domain: PositionSearchRules.PRODUCTCODE_DOMAIN
-            }
-        },
-        {
-            label: 'in',
-            value: '$in',
-            dataField: {
-                type: 'multiSelect',
-                domain: PositionSearchRules.PRODUCTCODE_DOMAIN
-            }
-        },
-        {
-            label: 'all',
-            value: '$all',
-            dataField: {
-                type: 'multiSelect',
-                domain: PositionSearchRules.PRODUCTCODE_DOMAIN
-            }
-        }]
+        conditions: Conditions.getComparisonConditions(PositionSearchRules.PRODUCTCODE_DOMAIN)
     },
     {
         field: { label: 'Contract Code', value: 'accountsDetails.macroAssets.positions.contractCode' },
@@ -124,89 +80,11 @@ export class PositionSearchRules {
     },
     {
         field: { label: 'Ctv', value: 'accountsDetails.macroAssets.positions.ctvEur' },
-        conditions: [{
-            label: '=',
-            value: '$eq',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '>',
-            value: '$gt',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '>=',
-            value: '$gte',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '<',
-            value: '$lt',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '<=',
-            value: '$lte',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        }]
+        conditions: Conditions.NUMERICS
     },
     {
         field: { label: 'Quantity', value: 'accountsDetails.macroAssets.positions.quantity' },
-        conditions: [{
-            label: '=',
-            value: '$eq',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '>',
-            value: '$gt',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '>=',
-            value: '$gte',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '<',
-            value: '$lt',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        },
-        {
-            label: '<=',
-            value: '$lte',
-            dataField: {
-                type: 'spinner',
-                domain: null
-            }
-        }]
+        conditions: Conditions.NUMERICS
     }
     ];
 }
