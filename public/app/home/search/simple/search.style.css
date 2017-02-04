@@ -1,0 +1,31 @@
+.simple-search-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    flex-wrap: wrap;
+}
+
+.area-container {
+    display: flex;
+    width: 98%;
+    flex-wrap: wrap;
+    overflow: visible;
+}
+
+.rule-container {
+    display: flex;
+    font-size: 12px;
+}
+
+.customers-card {
+    display: flex;
+    width: 98%;
+    margin-top: 10px;
+    overflow: visible;
+    z-index: 0;
+}
+
+.customers-container {
+    font-size: 12px;
+}

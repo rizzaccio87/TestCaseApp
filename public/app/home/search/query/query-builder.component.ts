@@ -17,10 +17,6 @@ export class QueryBuilderComponent implements OnInit {
 
     operators : SelectItem[];
     areas: SelectItem[];
-    fields : SelectItem[];
-    conditions : SelectItem[];
-    dataField: any;
-    dataOptions: SelectItem[];
 
     constructor() {
         this.operators = [

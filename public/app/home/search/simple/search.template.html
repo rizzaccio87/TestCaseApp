@@ -1,38 +1,57 @@
-<h2>Search</h2>
-<p-tabView>
-    <p-tabPanel header="Position">
-        <h3>Position Search</h3>
-        <div class="ui-grid">
-            <p-dropdown [options]="searchFields" [(ngModel)]="rule.field" (onChange)="onFieldChange($event)" [style]="{'width': '250px'}"></p-dropdown>
-            <p-dropdown *ngIf="searchConditions && searchConditions.length > 0" [options]="searchConditions" [(ngModel)]="rule.condition" (onChange)="onConditionChange($event)" [style]="{'width': '100px'}"></p-dropdown>
-            <div *ngIf="searchDataField" style="display: inline-block;">
-                <div [ngSwitch]="searchDataField.type">
-                    <p-dropdown *ngSwitchCase="'select'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-dropdown>
-                    <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="searchDataOptions" [(ngModel)]="rule.data" [style]="{'width': '250px'}"></p-multiSelect>
-                    <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="rule.data"></p-spinner>
-                    <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="rule.data" pInputText/>
-                </div>
-            </div>
-            <button pButton type="button" (click)="search()" label="Search" style="margin-left: 5px"></button>
-        </div>
-    </p-tabPanel>
-    <p-tabPanel header="Dossier">
-        <h3>Dossier Search</h3>
-    </p-tabPanel>
-</p-tabView>
+<div class="simple-search-container">
+<h2>Simple Search</h2>
+<p>Use simple search for simple queries.</p>
 
-<div *ngIf="!customer || customer.length === 0">No results</div>
-<div class="ui-grid" *ngIf="customers && customers.length > 0">
-    <p-dataTable #dt [value]="customers" 
-        [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
-        resizableColumns="true">
-        <header>Customers</header>
-        <p-column field="typeNdg.code" header="Type" [sortable]="true" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
-            <template pTemplate="filter" let-col>
-                <p-multiSelect [options]="ndgTypeDomain" defaultLabel="All Types" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
-            </template>
-        </p-column>
-        <p-column field="ndgCode" header="Ndg" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-        <p-column field="heading" header="Heading" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-    </p-dataTable>
+<div class="area-container mdl-card mdl-shadow--4dp">
+    <tabs>
+        <tab *ngFor="let area of areaTabs" [title]="area.label">
+            <h3>{{area.value}}</h3>
+            <div class="rule-container">
+                <p-dropdown [options]="area.rule.domains.fieldOptions" [(ngModel)]="area.rule.field" (onChange)="onFieldChange($event, area)" [style]="{'width': '150px'}"></p-dropdown>
+                <p-dropdown [options]="area.rule.domains.conditionOptions" [(ngModel)]="area.rule.condition.operator" (onChange)="onConditionChange($event, area)" [style]="{'width': '100px'}"></p-dropdown>
+                
+                <div *ngIf="area.rule.dataField" style="display: inline-block;">
+                    <div [ngSwitch]="area.rule.dataField.type">
+                        <p-dropdown *ngSwitchCase="'select'" [options]="area.rule.domains.dataOptions" [(ngModel)]="area.rule.data" [style]="{'width': '250px'}"></p-dropdown>
+                        <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="area.rule.domains.dataOptions" [(ngModel)]="area.rule.data" [style]="{'width': '250px'}" ></p-multiSelect>
+                        <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="area.rule.data"></p-spinner>
+                        <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="area.rule.data" pInputText/>
+                    </div>
+                </div>
+                
+                <button pButton type="button" (click)="search(area)" label="Search" style="margin-left: 5px"></button>
+            </div>
+        </tab>
+    </tabs>
+</div>
+
+<div *ngIf="!customers || customers.length === 0">No results</div>
+<div class="customers-card mdl-card mdl-shadow--4dp" *ngIf="customers && customers.length > 0">
+    <div class="mdl-card__title">Customers</div>
+    <div class="customers-container">
+        <p-dataTable #dt [value]="customers" 
+            [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
+            selectionMode="single" [(selection)]="selectedCustomer"
+            resizableColumns="true">
+            <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
+            <p-column field="institute" header="Institute" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="typeNdg.code" header="Type" [sortable]="true" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
+                <template pTemplate="filter" let-col>
+                    <p-multiSelect [options]="ndgTypeDomain" defaultLabel="All Types" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
+                </template>
+            </p-column>
+            <p-column field="ndgCode" header="Ndg" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            <p-column field="heading" header="Heading" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+        </p-dataTable>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="getCustomerDetails(selectedCustomer)">
+            Show Details
+        </a>
+    </div>
+</div>
+
+<div *ngIf="retrievedCustomer">
+    <customer-details [customer]="retrievedCustomer"></customer-details>
+</div>
 </div>

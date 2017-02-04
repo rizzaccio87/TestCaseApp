@@ -1,0 +1,85 @@
+<div class="customer-details mdl-card">
+    <tabs>
+        <tab title="Personal Data">
+            <h3>Personal Data</h3>
+            <div class="ui-g">
+                <div class="ui-g-2">
+                    <div style="width: 64px; height: 64px; background: url('https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_grey_64dp.png') no-repeat"></div>
+                    <div>{{customer.typeNdg.code}} - {{customer.ndgCode}}</div>
+                </div>
+                <div class="ui-g-10">
+                    <div>Name: {{customer.name}}</div>
+                    <div>Surname: {{customer.surname}}</div>
+                    <div>Heading: {{customer.heading}}</div>
+                    <div>Birthday: {{customer.birthday}}</div>
+                    <div>Fiscal Code: {{customer.fiscalCode}}</div>
+                    <div>Vat Number: {{customer.vatNumber}}</div>
+                    <div>Residence: {{customer.residence}}</div>
+                    <div>Fiscal Address: {{customer.fiscalAddress}}</div>
+                    <div>Correlated Subjects N°: {{customer.correlatedSubjects}}</div>
+                </div>
+            </div>
+        </tab>
+        <tab title="Correlated Subjects">
+            <h3>Correlated Subjects</h3>
+            <div class="ui-g" *ngIf="customer.correlatedSubjects > 0">
+                <div class="ui-g-6" *ngFor="let subject of customer.listCorrelatedSubjects">
+                    <div class="ui-g-2">
+                        <div style="width: 64px; height: 64px; background: url('https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_grey_64dp.png') no-repeat"></div>
+                    </div>
+                    <div class="ui-g-10">
+                        <div>{{subject.ndgCorrelated}} - {{subject.heading}} ({{subject.typeCodeNdg}})</div>
+                        <div>{{subject.typeCodeBond.description}} ({{subject.typeCodeBond.code}})</div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab title="Accounts Details">
+            <h3>Accounts Details</h3>
+            <p-dropdown [options]="purchasers" [(ngModel)]="selectedAccount" (onChange)="getAccountDetails(selectedAccount)" [style]="{'width': '180px'}"></p-dropdown>
+            <div class="ui-g" *ngIf="selectedAccount">
+                <div class="ui-g-6">
+                    <div class="ui-g-12">
+                        <div>Account List</div>
+                        <p-dataTable [value]="selectedAccount.accountsList">
+                            <p-column field="idDossier" header="Id"></p-column>
+                            <p-column field="cadId" header="Cad Id">
+                                <template let-acc="rowData" pTemplate="body">
+                                    <span>{{acc.cadId.branchCode}}/{{acc.cadId.deposit}}/{{acc.cadId.subDeposit}}</span>
+                                </template>
+                            </p-column>
+                            <p-column field="descriptionCategory" header="Type"></p-column>
+                            <p-column field="accountType.description" header="Rapporto"></p-column>
+                            <p-column field="totalCtv.value" header="Ctv"></p-column>
+                            <p-column field="sicavEnabled" header="C.Sot."></p-column>
+                        </p-dataTable>
+                    </div>
+                    <div class="ui-g-12">
+                        <div>Ledgers List</div>
+                        <p-dataTable [value]="selectedAccount.generalLedgers">
+                            <p-column field="ledgersType.code" header="Type"></p-column>
+                            <p-column field="ledgersType.description" header="Rapporto"></p-column>
+                            <p-column field="totalCtv.value" header="Ctv"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <div>Positions</div>
+                    <div *ngFor="let macroAsset of selectedAccount.macroAssets">
+                        <p-accordion>
+                            <p-accordionTab>
+                                <header>{{macroAsset.macroAssetClassId}}</header>
+                                <p-dataTable [value]="macroAsset.positions">
+                                    <p-column field="isin" header="Isin"></p-column>
+                                    <p-column field="description" header="Desc."></p-column>
+                                    <p-column field="ctvEur" header="Ctv"></p-column>
+                                    <p-column field="quantity" header="Qty"></p-column>
+                                </p-dataTable>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabs>
+</div>

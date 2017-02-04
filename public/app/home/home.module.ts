@@ -9,10 +9,10 @@ import { ButtonModule,
          ToolbarModule, 
          DataTableModule, 
          SharedModule,
-         MultiSelectModule, 
+         MultiSelectModule,
+         AccordionModule, 
          TabViewModule, 
          DropdownModule, 
-         AccordionModule, 
          InputTextModule,
          SpinnerModule } from 'primeng/primeng';
 
@@ -27,6 +27,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QueryComponent } from './search/query/query.component';
 import { QueryBuilderComponent } from './search/query/query-builder.component';
 import { CustomersComponent } from './customers/customers.component';
+import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 import { SearchComponent } from './search/simple/search.component';
 
 import { CustomersService } from './customers/customers.service';
@@ -44,9 +45,9 @@ import { SearchService } from './search/search.service';
         DataTableModule, 
         SharedModule, 
         MultiSelectModule, 
+        AccordionModule,
         TabViewModule, 
         DropdownModule, 
-        AccordionModule,
         InputTextModule,
         SpinnerModule,
         RouterModule.forChild(HomeRoutes)
@@ -62,6 +63,7 @@ import { SearchService } from './search/search.service';
         QueryComponent,
         QueryBuilderComponent,
         CustomersComponent,
+        CustomerDetailsComponent,
         SearchComponent
     ],
     providers: [
