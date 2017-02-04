@@ -129,6 +129,10 @@ export class SearchComponent implements OnInit {
 
     search(areaTab: any) {
         console.log("Search service: " + areaTab.rule);
+        if (this.selectedCustomer || this.retrievedCustomer) {
+            this.selectedCustomer = null;
+            this.retrievedCustomer = null;
+        }
 
         this._searchService.search(areaTab.rule)
             .subscribe(customers  => {

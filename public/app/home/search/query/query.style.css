@@ -1,0 +1,11 @@
+.customers-card {
+    display: flex;
+    width: 98%;
+    margin-top: 10px;
+    overflow: visible;
+    z-index: 0;
+}
+
+.customers-container {
+    font-size: 12px;
+}

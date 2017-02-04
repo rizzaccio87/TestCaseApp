@@ -49,7 +49,7 @@ exports.query = function(req, res) {
 
     let query = QueryMapper.mapQueryForDb(req.body);
 
-    Customer.find(query, 'ndgCode typeNdg heading').exec((err, customers) => {
+    Customer.find(query, 'institute ndgCode typeNdg heading').exec((err, customers) => {
       if (err) {
         return next(err);
       } else {

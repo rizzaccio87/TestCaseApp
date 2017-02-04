@@ -13,11 +13,9 @@ export class CustomerDetailsComponent implements OnInit {
 
     constructor() {
         this.purchasers.push({label:'Select the Purchaser', value: null});
-        console.log('constructor customer: ' + this.customer);
     }
 
     ngOnInit() { 
-        console.log('ngOnInit customer: ' + this.customer);
         if (this.customer && this.customer.accountsDetails) {
             for (let account of this.customer.accountsDetails) {
                 this.purchasers.push({label: account.purchaserNdg, value: account});
