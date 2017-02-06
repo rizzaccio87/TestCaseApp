@@ -1,53 +1,65 @@
 <div class="simple-search-container">
-<h2>Simple Search</h2>
+<h3>Simple Search</h3>
 <p>Use Simple Search for simple queries.</p>
 
-<div class="area-container mdl-card mdl-shadow--4dp">
-    <tabs>
-        <tab *ngFor="let area of areaTabs" [title]="area.label">
-            <h3>{{area.value}}</h3>
-            <div class="rule-container">
-                <p-dropdown [options]="area.rule.domains.fieldOptions" [(ngModel)]="area.rule.field" (onChange)="onFieldChange($event, area)" [style]="{'width': '150px'}"></p-dropdown>
-                <p-dropdown [options]="area.rule.domains.conditionOptions" [(ngModel)]="area.rule.condition.operator" (onChange)="onConditionChange($event, area)" [style]="{'width': '100px'}"></p-dropdown>
-                
-                <div *ngIf="area.rule.dataField" style="display: inline-block;">
-                    <div [ngSwitch]="area.rule.dataField.type">
-                        <p-dropdown *ngSwitchCase="'select'" [options]="area.rule.domains.dataOptions" [(ngModel)]="area.rule.data" [style]="{'width': '250px'}"></p-dropdown>
-                        <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="area.rule.domains.dataOptions" [(ngModel)]="area.rule.data" [style]="{'width': '250px'}" ></p-multiSelect>
-                        <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="area.rule.data"></p-spinner>
-                        <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="area.rule.data" pInputText/>
+<div class="simple-search-row">
+    <div class="area-container mdl-card mdl-shadow--4dp">
+        <tabs>
+            <tab *ngFor="let area of areaTabs" [title]="area.label">
+                <div class="rule-title">{{area.value}} Query</div>
+                <div class="rule-container">
+                    <div class="rule-fields">
+                        <label>Field: </label>
+                        <p-dropdown [options]="area.rule.domains.fieldOptions" [(ngModel)]="area.rule.field" (onChange)="onFieldChange($event, area)" [style]="{'width': '150px'}"></p-dropdown>
                     </div>
+                    <div class="rule-fields">
+                        <label>Condition: </label>
+                        <p-dropdown [options]="area.rule.domains.conditionOptions" [(ngModel)]="area.rule.condition.operator" (onChange)="onConditionChange($event, area)" [style]="{'width': '100px'}"></p-dropdown>
+                    </div>
+                    <div class="rule-fields">
+                        <label>Data: </label>
+                        <div *ngIf="area.rule.dataField" style="display: inline-block;">
+                            <div [ngSwitch]="area.rule.dataField.type">
+                                <p-dropdown *ngSwitchCase="'select'" [options]="area.rule.domains.dataOptions" [(ngModel)]="area.rule.data" autoWidth="true"></p-dropdown>
+                                <p-multiSelect *ngSwitchCase="'multiSelect'" [options]="area.rule.domains.dataOptions" [(ngModel)]="area.rule.data" autoWidth="true"></p-multiSelect>
+                                <p-spinner *ngSwitchCase="'spinner'" size="30" [(ngModel)]="area.rule.data"></p-spinner>
+                                <input *ngSwitchDefault style="margin-left: 5px" type="text" [(ngModel)]="area.rule.data" pInputText/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="rule-play-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" (click)="search(area)">
+                        <i class="material-icons">play_arrow</i>
+                    </button>
                 </div>
-                
-                <button pButton type="button" (click)="search(area)" label="Search" style="margin-left: 5px"></button>
-            </div>
-        </tab>
-    </tabs>
-</div>
-
-<div *ngIf="!customers || customers.length === 0">No results</div>
-<div class="customers-card mdl-card mdl-shadow--4dp" *ngIf="customers && customers.length > 0">
-    <div class="mdl-card__title">Customers</div>
-    <div class="customers-container">
-        <p-dataTable #dt [value]="customers" 
-            [rows]="10" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
-            selectionMode="single" [(selection)]="selectedCustomer"
-            resizableColumns="true">
-            <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
-            <p-column field="institute" header="Institute" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="typeNdg.code" header="Type" [sortable]="true" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
-                <template pTemplate="filter" let-col>
-                    <p-multiSelect [options]="ndgTypeDomain" defaultLabel="All Types" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
-                </template>
-            </p-column>
-            <p-column field="ndgCode" header="Ndg" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-            <p-column field="heading" header="Heading" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
-        </p-dataTable>
+            </tab>
+        </tabs>
     </div>
-    <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="getCustomerDetails(selectedCustomer)">
-            Show Details
-        </a>
+
+    <div class="customers-card" *ngIf="!customers || customers.length === 0">No results!</div>
+    <div class="customers-card mdl-card mdl-shadow--4dp" *ngIf="customers && customers.length > 0">
+        <div class="mdl-card__title">Customers</div>
+        <div class="customers-container">
+            <p-dataTable #dt [value]="customers" 
+                [rows]="5" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[5,10,20]" 
+                selectionMode="single" [(selection)]="selectedCustomer"
+                resizableColumns="true">
+                <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
+                <p-column field="institute" header="Institute" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+                <p-column field="typeNdg.code" header="Type" [sortable]="true" [filter]="true" filterMatchMode="in" [style]="{'overflow':'visible'}">
+                    <template pTemplate="filter" let-col>
+                        <p-multiSelect [options]="ndgTypeDomain" defaultLabel="All Types" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-multiSelect>
+                    </template>
+                </p-column>
+                <p-column field="ndgCode" header="Ndg" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+                <p-column field="heading" header="Heading" [sortable]="true" [filter]="true" filterPlaceholder="Search"></p-column>
+            </p-dataTable>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="getCustomerDetails(selectedCustomer)">
+                Show Details
+            </a>
+        </div>
     </div>
 </div>
 
